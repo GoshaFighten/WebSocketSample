@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>  
+        var socket = io.connect('/');
+        socket.on('stats', function(data) {
+            document.getElementById('num').innerText = data.numClients;
+        });
+
+        socket.on('event', function(data) {
+            document.getElementById('message').innerText = data.message;
+        });
+        
+        function btnClick() {
+            socket.emit('event', { message: 'Hey, I have an important message!' });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="message">No event</div>
+    <button onclick="btnClick()"></button>
+    <div id="num">0</div>
+</body>
+
+</html>
